@@ -1,0 +1,51 @@
+
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: email-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"  # API Port
+      - "2525:2525"  # SMTP Port
+    environment:
+      - PORT=3000
+      - CORS_ORIGIN=https://1e9dfe73-642f-4dd7-8adc-5a14f68cef1b.lovableproject.com
+      - SMTP_HOST=0.0.0.0
+      - SMTP_PORT=2525
+      - REDIS_URL=redis://redis:6379
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:alpine
+    container_name: email-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  postgres:
+    image: postgres:14-alpine
+    container_name: email-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  redis-data:
+  postgres-data:
