@@ -1,5 +1,6 @@
 
 import { EmailType } from '@/types/email';
+import { supabase } from "@/integrations/supabase/client";
 
 // Function to generate a random email address
 export const generateRandomEmail = (): string => {
@@ -8,6 +9,26 @@ export const generateRandomEmail = (): string => {
   const domain = domains[Math.floor(Math.random() * domains.length)];
   
   return `${username}@${domain}`;
+};
+
+// Mark an email as read
+export const markEmailAsRead = async (emailId: string): Promise<void> => {
+  try {
+    // Update the local mock data
+    mockEmails.forEach(email => {
+      if (email.id === emailId) {
+        email.read = true;
+      }
+    });
+    
+    // In a real app with Supabase, this would update the database:
+    // await supabase.from('emails').update({ read: true }).eq('id', emailId);
+    
+    return Promise.resolve();
+  } catch (error) {
+    console.error("Error marking email as read:", error);
+    return Promise.reject(error);
+  }
 };
 
 // Mock data for emails

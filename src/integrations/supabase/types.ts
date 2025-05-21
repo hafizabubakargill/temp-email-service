@@ -9,7 +9,159 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      domains: {
+        Row: {
+          active: boolean | null
+          created_at: string | null
+          domain: string
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string | null
+          domain: string
+          id?: string
+          updated_at?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string | null
+          domain?: string
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      emails: {
+        Row: {
+          attachments: Json | null
+          body: string | null
+          created_at: string | null
+          html_body: string | null
+          id: string
+          labels: string[] | null
+          read: boolean | null
+          received_at: string | null
+          recipient: string
+          sender: string
+          subject: string | null
+          temp_email_id: string | null
+        }
+        Insert: {
+          attachments?: Json | null
+          body?: string | null
+          created_at?: string | null
+          html_body?: string | null
+          id?: string
+          labels?: string[] | null
+          read?: boolean | null
+          received_at?: string | null
+          recipient: string
+          sender: string
+          subject?: string | null
+          temp_email_id?: string | null
+        }
+        Update: {
+          attachments?: Json | null
+          body?: string | null
+          created_at?: string | null
+          html_body?: string | null
+          id?: string
+          labels?: string[] | null
+          read?: boolean | null
+          received_at?: string | null
+          recipient?: string
+          sender?: string
+          subject?: string | null
+          temp_email_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emails_temp_email_id_fkey"
+            columns: ["temp_email_id"]
+            isOneToOne: false
+            referencedRelation: "temporary_emails"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sent_emails: {
+        Row: {
+          body: string | null
+          html_body: string | null
+          id: string
+          recipient: string
+          sent_at: string | null
+          status: string | null
+          subject: string | null
+          temp_email_id: string | null
+        }
+        Insert: {
+          body?: string | null
+          html_body?: string | null
+          id?: string
+          recipient: string
+          sent_at?: string | null
+          status?: string | null
+          subject?: string | null
+          temp_email_id?: string | null
+        }
+        Update: {
+          body?: string | null
+          html_body?: string | null
+          id?: string
+          recipient?: string
+          sent_at?: string | null
+          status?: string | null
+          subject?: string | null
+          temp_email_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sent_emails_temp_email_id_fkey"
+            columns: ["temp_email_id"]
+            isOneToOne: false
+            referencedRelation: "temporary_emails"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      temporary_emails: {
+        Row: {
+          created_at: string | null
+          domain_id: string | null
+          email: string
+          expires_at: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          domain_id?: string | null
+          email: string
+          expires_at?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          domain_id?: string | null
+          email?: string
+          expires_at?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "temporary_emails_domain_id_fkey"
+            columns: ["domain_id"]
+            isOneToOne: false
+            referencedRelation: "domains"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
