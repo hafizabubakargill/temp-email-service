@@ -96,12 +96,21 @@ export default {
 						transform: 'translateY(10px)'
 					}
 				},
+				'pulse-shadow': {
+					'0%, 100%': {
+						'box-shadow': '0 0 0 0 rgba(124, 58, 237, 0.4)'
+					},
+					'50%': {
+						'box-shadow': '0 0 0 10px rgba(124, 58, 237, 0)'
+					}
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-out': 'fade-out 0.3s ease-out',
+				'pulse-shadow': 'pulse-shadow 2s infinite'
 			}
 		}
 	},

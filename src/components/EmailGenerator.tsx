@@ -7,11 +7,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { toast } from 'sonner';
 import { Copy, RefreshCw } from 'lucide-react';
 import { generateRandomEmail } from '@/services/emailService';
+import { useEmailContext } from '@/context/EmailContext';
 
 export const EmailGenerator: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const { clearEmails } = useEmailContext();
 
   useEffect(() => {
     generateNewEmail();
@@ -24,6 +26,8 @@ export const EmailGenerator: React.FC = () => {
       const newEmail = generateRandomEmail();
       setEmail(newEmail);
       setLoading(false);
+      clearEmails(); // Clear emails when generating a new email address
+      toast.info("New email generated. Inbox cleared.");
     }, 800);
   };
 
@@ -38,7 +42,7 @@ export const EmailGenerator: React.FC = () => {
   };
 
   return (
-    <Card className="border-none shadow-lg bg-white/70 backdrop-blur-sm mb-10">
+    <Card className="border-none shadow-lg bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm mb-10">
       <CardContent className="p-6">
         <h2 className="text-xl font-semibold mb-4 text-center">Your Temporary Email Address</h2>
         <div className="flex flex-col md:flex-row gap-2">
@@ -54,7 +58,7 @@ export const EmailGenerator: React.FC = () => {
               </div>
             )}
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-center md:justify-start w-full md:w-auto">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>

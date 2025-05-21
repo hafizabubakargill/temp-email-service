@@ -74,6 +74,8 @@
 
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 }
 
@@ -88,4 +90,12 @@
 
 .animate-pulse-shadow {
   animation: pulse-shadow 2s infinite;
+}
+
+/* Mobile optimization */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }

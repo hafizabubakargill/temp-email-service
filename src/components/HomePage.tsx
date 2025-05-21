@@ -2,12 +2,15 @@
 import React from 'react';
 import { EmailGenerator } from './EmailGenerator';
 import { Mailbox } from './Mailbox';
-import { Mail, Shield, Clock } from 'lucide-react';
+import { Header } from './Header';
+import { Shield, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Mail } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-accent/20">
+    <div className="min-h-screen bg-gradient-to-b from-background to-accent/20 dark:from-gray-900 dark:to-gray-800">
+      <Header />
       <div className="container px-4 py-8 mx-auto">
         {/* Header Section */}
         <header className="text-center mb-12 animate-fade-in">
@@ -29,7 +32,7 @@ export const HomePage: React.FC = () => {
         <section className="mt-16 mb-12">
           <h2 className="text-2xl font-semibold text-center mb-8">Why use DisposaMail?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="border-none shadow-lg bg-white/70 backdrop-blur-sm">
+            <Card className="border-none shadow-lg bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <div className="flex flex-col items-center text-center">
                   <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -43,7 +46,7 @@ export const HomePage: React.FC = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-none shadow-lg bg-white/70 backdrop-blur-sm">
+            <Card className="border-none shadow-lg bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <div className="flex flex-col items-center text-center">
                   <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -57,7 +60,7 @@ export const HomePage: React.FC = () => {
               </CardContent>
             </Card>
             
-            <Card className="border-none shadow-lg bg-white/70 backdrop-blur-sm">
+            <Card className="border-none shadow-lg bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <div className="flex flex-col items-center text-center">
                   <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -76,7 +79,6 @@ export const HomePage: React.FC = () => {
         {/* Footer */}
         <footer className="text-center text-muted-foreground text-sm py-6 mt-8 border-t">
           <p>© {new Date().getFullYear()} DisposaMail. All rights reserved.</p>
-          <p className="mt-2">This is a demo project and not intended for production use.</p>
         </footer>
       </div>
     </div>

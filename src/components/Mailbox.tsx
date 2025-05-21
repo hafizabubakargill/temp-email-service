@@ -1,47 +1,18 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Inbox, RefreshCw } from 'lucide-react';
 import { EmailMessage } from './EmailMessage';
-import { fetchEmails } from '@/services/emailService';
-import { EmailType } from '@/types/email';
+import { useEmailContext } from '@/context/EmailContext';
 
 export const Mailbox: React.FC = () => {
-  const [emails, setEmails] = useState<EmailType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
-
-  useEffect(() => {
-    loadEmails();
-  }, []);
-
-  const loadEmails = async () => {
-    setLoading(true);
-    try {
-      // Simulate API call delay
-      const data = await fetchEmails();
-      setEmails(data);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const refreshEmails = async () => {
-    setRefreshing(true);
-    try {
-      // Simulate API call delay
-      const data = await fetchEmails(true);
-      setEmails((prev) => [...data, ...prev]);
-    } finally {
-      setRefreshing(false);
-    }
-  };
+  const { emails, loading, refreshing, refreshEmails } = useEmailContext();
 
   return (
-    <Card className="shadow-lg border-none bg-white/70 backdrop-blur-sm">
+    <Card className="shadow-lg border-none bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-center">
           <CardTitle className="flex items-center gap-2">
@@ -56,7 +27,7 @@ export const Mailbox: React.FC = () => {
           <Button 
             variant="ghost" 
             size="sm" 
-            onClick={refreshEmails}
+            onClick={() => refreshEmails()}
             disabled={refreshing}
             className="h-8 w-8 p-0"
           >
